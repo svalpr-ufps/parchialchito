@@ -4,11 +4,6 @@ Este es un proyecto para el primer parcial de Programación Web 2024-2. La pági
 
 ## Información del Estudiante
 
-- **Nombre**: [Sarith Valentina Parada Ramón]
-- **Código**: [1152253]
-
-## Descripción del Proyecto
-
-Este proyecto tiene como objetivo [describir el objetivo del proyecto, por ejemplo, "presentar información sobre la historia de la programación web"].
+- **Nombre**: [Sarith Valentina Parada Ramón] 
 
 [Este readme fue hecho con ayuda de IA].
