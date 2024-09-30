@@ -1,0 +1,27 @@
+@import "{{ site.theme }}";
+
+.verde {
+    background-color: #7A9B62;}
+.vino {
+    background-color: #756069;}
+.marron {
+    background-color: #512F2E;}
+.rosado {
+    background-color: #Af5D62;}
+.gris-claro {
+    background-color: #F2EBE7;}
+.negro {
+    background-color: #423A31;}
+
+.texto-verde {
+    color: #7A9B62;}
+.texto-vino {
+    color: #756069;}
+.texto-marron {
+    color: #512F2E;}
+.texto-rosado {
+    color: #Af5D62;}
+.texto-gris-claro {
+    color: #F2EBE7;}
+.texto-negro {
+    color: #423A31;}
