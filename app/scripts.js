@@ -19,12 +19,12 @@ function showNotification(message) {
 }
 
 goToCartBtn.addEventListener('click', () => {
-    window.location.href = "carrito/index.html"; 
+    window.location.href = "carrito"; 
 });
 
 logoutBtn.addEventListener('click', () => {
     alert('You have logged out.');
-    window.location.href= "../login/index.html";
+    window.location.href= "../login";
 });
 
 
