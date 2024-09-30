@@ -58,3 +58,33 @@ main {
     padding: 15px;
     border-radius: 5px;
 }
+
+h1 {
+    text-align: center;
+}
+
+.botones-categorias {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.categoria-btn {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--verdecito);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.categoria-btn:hover {
+    background-color: var(--moradito);
+}
+
+#productos {
+    text-align: center;
+    margin-top: 20px;
+}

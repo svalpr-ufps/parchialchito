@@ -20,15 +20,16 @@
         </nav>
     </header>
     <main>
-        <section>
-            <label for="categorySelect">Select category</label>
-            <select id="categorySelect">
-                <option value="">All categories</option>
-            </select>
-        </section>
-    
+        <h1>Selecciona una Categoría</h1>
+        <div class="botones-categorias">
+            <button class="categoria-btn" data-categoria="electronics">Electrónica</button>
+            <button class="categoria-btn" data-categoria="jewelery">Joyería</button>
+            <button class="categoria-btn" data-categoria="men's clothing">Ropa de Hombre</button>
+            <button class="categoria-btn" data-categoria="women's clothing">Ropa de Mujer</button>
+        </div>
+        
+        <div id="productos"></div>
         <section id="productList">
-            <!-- Aquí se cargarán los productos dinámicamente -->
         </section>
     
         <div id="notification" class="hidden">

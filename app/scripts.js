@@ -1,49 +1,8 @@
 // Variables
-const categorySelect = document.getElementById('categorySelect');
-const productList = document.getElementById('productList');
-const notification = document.getElementById('notification');
-const notificationText = document.getElementById('notificationText');
 const goToCartBtn = document.getElementById('goToCartBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 
 let cart = [];
-
-// Consumir endpoint para obtener productos
-async function fetchProducts(category = '') {
-    let url = 'https://fakestoreapi.com/products'; // Reemplaza con el endpoint real
-    if (category) {
-        url += `?category=${category}`;
-    }
-    try {
-        const response = await fetch(url);
-        const products = await response.json();
-        displayProducts(products);
-    } catch (error) {
-        console.error('Error fetching products:', error);
-    }
-}
-
-// Mostrar productos en la página
-function displayProducts(products) {
-    productList.innerHTML = '';
-    products.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
-        productDiv.innerHTML = `
-      <h3>${product.name}</h3>
-      <p>Precio: $${product.price}</p>
-      <button onclick="addToCart('${product.id}')">Add to Cart</button>
-    `;
-        productList.appendChild(productDiv);
-    });
-}
-
-// Filtrar productos por categoría
-categorySelect.addEventListener('change', () => {
-    const selectedCategory = categorySelect.value;
-    fetchProducts(selectedCategory);
-});
-
 // Añadir producto al carrito
 function addToCart(productId) {
     cart.push(productId);
@@ -60,11 +19,42 @@ function showNotification(message) {
 }
 
 goToCartBtn.addEventListener('click', () => {
-    alert('Vas al carrito con ' + cart.length + ' productos.');
     window.location.href = "carrito/index.html"; 
 });
 
 logoutBtn.addEventListener('click', () => {
-    alert('Has cerrado sesión.');
+    alert('You have logged out.');
     window.location.href= "../login/index.html";
 });
+
+
+const botones = document.querySelectorAll('.categoria-btn');
+const productosDiv = document.getElementById('productos');
+
+botones.forEach(boton => {
+    boton.addEventListener('click', () => {
+        const categoria = boton.getAttribute('data-categoria');
+        obtenerProductos(categoria);
+    });
+});
+
+function obtenerProductos(categoria) {
+    fetch(`https://fakestoreapi.com/products/category/${categoria}`)
+        .then(res => res.json())
+        .then(json => mostrarProductos(json))
+        .catch(error => console.error('Error:', error));
+}
+
+function mostrarProductos(productos) {
+    productosDiv.innerHTML = '';
+    productos.forEach(producto => {
+        const productoDiv = document.createElement('div');
+        productoDiv.classList.add('producto');
+        productoDiv.innerHTML = `
+            <h3>${producto.title}</h3>
+            <p>Precio: $${producto.price}</p>
+            <img src="${producto.image}" alt="${producto.title}" style="width: 100px;">
+        `;
+        productosDiv.appendChild(productoDiv);
+    });
+}
