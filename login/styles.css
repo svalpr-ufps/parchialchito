@@ -17,3 +17,9 @@
     margin-top: 1rem;
     width: 100%;
 }
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

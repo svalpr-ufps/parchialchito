@@ -61,10 +61,10 @@ function showNotification(message) {
 
 goToCartBtn.addEventListener('click', () => {
     alert('Vas al carrito con ' + cart.length + ' productos.');
-    window.location.href = 'carrito/index.html'; 
+    window.location.href = "carrito/index.html"; 
 });
 
 logoutBtn.addEventListener('click', () => {
     alert('Has cerrado sesión.');
-    window.location.href='../login/index.html';
+    window.location.href= "../login/index.html";
 });
