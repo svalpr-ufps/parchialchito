@@ -1,46 +1,70 @@
-const productList = document.getElementById('productList');
+// Variables
 const categorySelect = document.getElementById('categorySelect');
+const productList = document.getElementById('productList');
+const notification = document.getElementById('notification');
+const notificationText = document.getElementById('notificationText');
+const goToCartBtn = document.getElementById('goToCartBtn');
+const logoutBtn = document.getElementById('logoutBtn');
 
-// Función para obtener categorías
-async function loadCategories() {
-    const response = await fetch('https://fakestoreapi.com/products/categories');
-    const categories = await response.json();
-    categories.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        categorySelect.appendChild(option);
-    });
-    loadProducts();  // Cargar productos después de obtener categorías
+let cart = [];
+
+// Consumir endpoint para obtener productos
+async function fetchProducts(category = '') {
+    let url = 'https://fakestoreapi.com/products'; // Reemplaza con el endpoint real
+    if (category) {
+        url += `?category=${category}`;
+    }
+    try {
+        const response = await fetch(url);
+        const products = await response.json();
+        displayProducts(products);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
 }
 
-// Función para obtener productos
-async function loadProducts(category = 'all') {
-    const response = await fetch('https://fakestoreapi.com/products');
-    const products = await response.json();
-
-    // Filtrar productos por categoría
-    const filteredProducts = category === 'all' ? products : products.filter(product => product.category === category);
-
-    // Mostrar productos
+// Mostrar productos en la página
+function displayProducts(products) {
     productList.innerHTML = '';
-    filteredProducts.forEach(product => {
+    products.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
         productDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.title}">
-            <h2>${product.title}</h2>
-            <p>${product.description}</p>
-            <p>Precio: $${product.price}</p>
-        `;
+      <h3>${product.name}</h3>
+      <p>Precio: $${product.price}</p>
+      <button onclick="addToCart('${product.id}')">Add to Cart</button>
+    `;
         productList.appendChild(productDiv);
     });
 }
 
-// Evento de cambio en la selección de categorías
-categorySelect.addEventListener('change', (event) => {
-    loadProducts(event.target.value);
+// Filtrar productos por categoría
+categorySelect.addEventListener('change', () => {
+    const selectedCategory = categorySelect.value;
+    fetchProducts(selectedCategory);
 });
 
-// Cargar categorías al iniciar
-loadCategories();
+// Añadir producto al carrito
+function addToCart(productId) {
+    cart.push(productId);
+    showNotification('Producto añadido al carrito');
+}
+
+// Mostrar notificación
+function showNotification(message) {
+    notificationText.textContent = message;
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+        notification.classList.add('hidden');
+    }, 3000);
+}
+
+goToCartBtn.addEventListener('click', () => {
+    alert('Vas al carrito con ' + cart.length + ' productos.');
+    window.location.href = 'carrito/index.html'; 
+});
+
+logoutBtn.addEventListener('click', () => {
+    alert('Has cerrado sesión.');
+    window.location.href='../login/index.html';
+});

@@ -4,11 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Product List</title>
 </head>
 
 <body>
+    <header>
+        <h1>Shop Online</h1>
+        <nav>
+            <ul>
+                <button id="goToCartBtn">Cart</button>
+                <button id="logoutBtn">Exit</button>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <h1>Product List</h1>
         <select id="categorySelect">
@@ -16,7 +26,25 @@
         </select>
         <div id="productList"></div>
     </div>
+    <main>
+        <section>
+            <label for="categorySelect">Select category</label>
+            <select id="categorySelect">
+                <option value="">All</option>
+            </select>
+        </section>
+    
+        <section id="productList">
+            <!-- Aquí se cargarán los productos dinámicamente -->
+        </section>
+    
+        <div id="notification" class="hidden">
+            <p id="notificationText"></p>
+        </div>
+    </main>
     <script src="script.js"></script>
+    <footer></footer>
+        <p>© 2024 Shop Online</p>
+    </footer>
 </body>
-
 </html>

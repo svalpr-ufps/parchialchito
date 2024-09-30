@@ -53,12 +53,12 @@
 
 :root {
     --slate-100: #f1f5f9;
-    --slate-300: #cbd5e1;
+    --slate-300: #e1cbda;
     --nse: #756069;
     --red-100: #fee2e2;
     --rosado: #Af5D62;
     --verdecito: #7A9B62;
-    --marroncito: #512F2E;
+    --moradito: #462e51;
 }
 
 * {
@@ -96,7 +96,7 @@ input[type="button"],
 button {
     box-sizing: border-box;
     padding: 0.5rem 1rem;
-    border: 0.2rem solid var(--marroncito);
+    border: 0.2rem solid var(--moradito);
     transition: all 0.2ss;
     background: var(--rosado);
     color: var(--slate-100);
@@ -117,7 +117,7 @@ button:focus {
 input[type="submit"]:active,
 input[type="button"]:active,
 button:hover {
-    background: var(--marroncito);
+    background: var(--moradito);
 }
 
 table {
@@ -126,7 +126,7 @@ table {
 
 th {
     padding: 0.5rem;
-    border: 0.2rem solid var(--marroncito);
+    border: 0.2rem solid var(--moradito);
 }
 
 td {
