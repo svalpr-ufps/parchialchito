@@ -2,43 +2,162 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Online</title>
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="styles.css" />
-    <title>Product List</title>
 </head>
 
 <body>
-    <header>
-        <h1>Shop Online</h1>
-        <nav>
-            <ul>
-                <button id="goToCartBtn">Cart</button>
-                <button id="logoutBtn">Exit</button>
-            </ul>
+    <header class="header">
+        <p class="header__logo">Tienda</p>
+        <nav class="header__links">
+            <span class="header__user">Bienvenido</span>
+            <a href="../carrito">Carrito</a>
+            <a onclick="logout()">Salir</a>
         </nav>
     </header>
-    <main>
-        <h1>Selecciona una Categoría</h1>
-        <div class="botones-categorias">
-            <button class="categoria-btn" data-categoria="electronics">Electrónica</button>
-            <button class="categoria-btn" data-categoria="jewelery">Joyería</button>
-            <button class="categoria-btn" data-categoria="men's clothing">Ropa de Hombre</button>
-            <button class="categoria-btn" data-categoria="women's clothing">Ropa de Mujer</button>
+
+    <main class="main">
+        <div class="main__search">
+            <div class="input-container">
+                <label class="input-container__label" for="filter">Filtro de Búsqueda:</label>
+                <input class="input-container__input" type="text" name="filter" id="filter" />
+            </div>
+            <button id="searchBtn">Buscar</button>
         </div>
-        
-        <div id="productos"></div>
-        <section id="productList">
-        </section>
-    
+
+        <h1>Productos</h1>
+        <nav class="categories">
+            <a class="btn filter-btn" data-category="">Todos</a>
+            <a class="btn filter-btn" data-category="electronics">Electrónica</a>
+            <a class="btn filter-btn" data-category="jewelery">Joyería</a>
+            <a class="btn filter-btn" data-category="men's clothing">Ropa de Hombre</a>
+            <a class="btn filter-btn" data-category="women's clothing">Ropa de Mujer</a>
+        </nav>
+
+        <div id="product-list" class="results"></div>
+
         <div id="notification" class="hidden">
             <p id="notificationText"></p>
         </div>
     </main>
-    <script src="script.js"></script>
-    <footer></footer>
+
+    <footer>
         <p>© 2024 Shop Online</p>
     </footer>
+
+    <script src="script.js"></script>
+    <script src="../scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productList = document.getElementById('product-list');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchBtn = document.getElementById('searchBtn');
+            const filterInput = document.getElementById('filter');
+
+            // Función para cargar y mostrar productos
+            function loadProducts(category = '', searchTerm = '') {
+                let url = 'https://fakestoreapi.com/products';
+
+                // Si hay una categoría seleccionada, modificar la URL para filtrar
+                if (category) {
+                    url += `/category/${category}`;
+                }
+
+                fetch(url)
+                    .then(res => res.json())
+                    .then(products => {
+                        // Limpiar el contenedor de productos
+                        productList.innerHTML = '';
+
+                        // Filtrar por término de búsqueda si se proporciona
+                        const filteredProducts = products.filter(product =>
+                            product.title.toLowerCase().includes(searchTerm.toLowerCase())
+                        );
+
+                        // Iterar sobre los productos filtrados y agregarlos al DOM
+                        filteredProducts.forEach(product => {
+                            const productCard = document.createElement('div');
+                            productCard.classList.add('product-card');
+
+                            productCard.innerHTML = `
+                                <img src="${product.image}" alt="${product.title}" class="product-image">
+                                <h3>${product.title}</h3>
+                                <p>${product.description}</p>
+                                <p><strong>Precio:</strong> $${product.price}</p>
+                                <button onclick="addToCart(${product.id})">Agregar</button>
+                            `;
+
+                            productList.appendChild(productCard);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching products:', error);
+                        productList.innerHTML = '<p>Hubo un error al cargar los productos.</p>';
+                    });
+            }
+
+            // Cargar todos los productos al inicio
+            loadProducts();
+
+            // Añadir evento a los botones para filtrar por categoría
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.getAttribute('data-category');
+                    loadProducts(category);
+                });
+            });
+
+            // Evento de búsqueda
+            searchBtn.addEventListener('click', () => {
+                const searchTerm = filterInput.value;
+                loadProducts('', searchTerm); // Pasar la búsqueda sin categoría
+            });
+        });
+
+        async function addToCart(productId) {
+            try {
+                const req = await fetch("https://fakestoreapi.com/carts", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userId: 5,
+                        date: new Date(),
+                        products: [{ productId: productId, quantity: 1 }],
+                    }),
+                });
+
+                const data = await req.json();
+                showNotification('Producto añadido al carrito');
+            } catch (err) {
+                showNotification("No se ha podido agregar el producto");
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+
+            if (notification && notificationText) {
+                notificationText.textContent = message;
+                notification.classList.remove('hidden');
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 3000);
+            } else {
+                console.error('Notification elements not found');
+            }
+        }
+
+        function logout() {
+            alert('Has cerrado sesión.');
+            window.location.href = "../login";
+        }
+    </script>
 </body>
+
 </html>

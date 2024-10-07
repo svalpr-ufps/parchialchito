@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+    <header class="header">
+        <p class="header__logo">Tienda</p>
+        <nav class="header__links">
+            <span class="header__user">Bienvenido</span>
+            <a href="../carrito/"> Carrito </a>
+            <a onclick="logout()"> Salir </a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div id="all-carts">
+            <h1>Relación de Pedidos</h1>
+            <table>
+                <thead>
+                    <th>Número</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody id="carts"></tbody>
+            </table>
+        </div>
+
+        <div id="cart-details">
+            <h1>Relación de Productos</h1>
+            <table>
+                <thead>
+                    <th>Concepto</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>
+                    <th>Total</th>
+                </thead>
+                <tbody id="products"></tbody>
+            </table>
+        </div>
+    </main>
+    <script src="../scripts.js"></script>
+    <script src="./scripts.js"></script>
+</body>
+
+</html>

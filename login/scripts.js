@@ -1,15 +1,27 @@
-const USER = "mor_2314";
-const PASS = "83r5^_";
-
 const loginForm = document.querySelector("#login-form");
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const formData = new FormData(loginForm);
 
-    if (formData.get("user") === USER && formData.get("pass") === PASS) {
-        localStorage.setItem("user", USER);
-        window.location.href = "../app";
-    } else {
-        alert("Contraseña Incorrecta");
+    const req = await fetch("https://fakestoreapi.com/auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: formData.get("user"),
+            password: formData.get("pass"),
+        }),
+    });
+
+    if (req.status !== 200) {
+        alert(await req.text());
+        return;
     }
+
+    const data = await req.json();
+    console.log(data);
+
+    localStorage.setItem("user", formData.get("user"));
+    window.location.href = "../app";
 });
