@@ -26,10 +26,11 @@ label {
 input,
 select {
     box-sizing: border-box;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     background: var(--slate-100);
     padding: 0.5rem 1rem;
     border: 0.2rem solid var(--slate-300);
+    border-radius: 1rem;
     outline: none;
 }
 
@@ -44,6 +45,7 @@ button {
     box-sizing: border-box;
     padding: 0.5rem 1rem;
     border: 0.2rem solid var(--moradito);
+    border-radius: 1rem;
     transition: all 0.2s;
     background: var(--rosado);
     color: var(--slate-100);
@@ -74,11 +76,13 @@ table {
 th {
     padding: 0.5rem;
     border: 0.2rem solid var(--moradito);
+
 }
 
 td {
     padding: 0.5rem;
     border: 0.2rem solid var(--nse);
+    
 }
 
 th {

@@ -69,15 +69,12 @@
                 fetch(url)
                     .then(res => res.json())
                     .then(products => {
-                        // Limpiar el contenedor de productos
                         productList.innerHTML = '';
 
-                        // Filtrar por término de búsqueda si se proporciona
                         const filteredProducts = products.filter(product =>
                             product.title.toLowerCase().includes(searchTerm.toLowerCase())
                         );
 
-                        // Iterar sobre los productos filtrados y agregarlos al DOM
                         filteredProducts.forEach(product => {
                             const productCard = document.createElement('div');
                             productCard.classList.add('product-card');
